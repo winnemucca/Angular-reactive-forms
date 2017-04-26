@@ -15,10 +15,10 @@ export class AppComponent implements OnInit{
 
   ngOnInit():void {
     this.customerForm = this.fb.group({
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: null
+      firstName: ['',[Validators.required, Validators.minLength(3)]],
+      lastName: ['',[Validators.required, Validators.minLength(3)]],
+      email: ['',[Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(3)]]
     })
   }
 
