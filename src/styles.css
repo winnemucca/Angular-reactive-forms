@@ -1,1 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
+.demo-card-container {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.demo-card-container .mat-card {
+  margin: 0 16px 16px 0;
+  width: 400px;
+
+}
+
+.demo-card-container .mat-card-actions {
+    display: flex;
+    flex-direction: column;
+}
+.demo-basic {
+  padding: 0;
+}
+.demo-basic .mat-card-content {
+  padding: 16px;
+}
+.demo-full-width {
+  width: 100%;
+}
+
+.demo-card {
+  margin: 16px;
+}
+
+
+.demo-grid-list {
+  width: 1100px;
+
+}
+
+.demo-grid-list .mat-card {
+  margin: 16px 0;
+}
+

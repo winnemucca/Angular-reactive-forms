@@ -1,3 +1,60 @@
-<h1>
-  {{title}}
-</h1>
+
+<div class="demo-grid-list">
+  <md-card>
+    <md-card-title>Basic grid list</md-card-title>
+    <md-card-content class="demo-basic-list">
+      <md-grid-list cols="3" [rowHeight]="fit" gutterSize="1">
+        <md-grid-tile> One </md-grid-tile>
+        <md-grid-tile>
+          <form novalidate (ngSubmit)="onSubmit(user)" [formGroup]="customerForm">
+            <md-card-title-group>
+              <md-card-title style="margin-left: 8px;">Model Driven Form</md-card-title>
+
+            </md-card-title-group>
+            <div>
+              <md-input-container style="width: 100%">
+                <input
+                  formControlName="firstName"
+                  type="text"
+                  mdInput
+                  placeholder="First name">
+              </md-input-container>
+              <md-input-container  style="width: 100%">
+                <input
+                  formControlName="lastName"
+                  type="text"
+                  mdInput
+                  placeholder="Last name">
+              </md-input-container>
+
+              <md-input-container style="width: 100%">
+                <input
+                  formControlName="email"
+                  type="email"
+                  mdInput
+                  placeholder="Email">
+                <!--<span mdPrefix>$&nbsp;</span>-->
+
+              </md-input-container>
+              <md-input-container style="width: 100%">
+                <input
+                  formControlName="password"
+                  type="password"
+                  mdInput
+                  placeholder="Password">
+              </md-input-container>
+            </div>
+            <md-card-actions>
+              <button color="primary" md-raised-button>Submit</button>
+            </md-card-actions>
+
+            <md-card-footer>
+              <md-progress-bar mode="indeterminate"></md-progress-bar>
+            </md-card-footer>
+          </form>
+        </md-grid-tile>
+        <md-grid-tile> Three </md-grid-tile>
+      </md-grid-list>
+    </md-card-content>
+  </md-card>
+</div>
