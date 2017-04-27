@@ -4,6 +4,19 @@ import 'rxjs/add/operator/debounceTime';
 
 import { Customer } from './customer.model';
 
+
+function passwordMatcher(c: AbstractControl): {[key: string]: boolean} |null {
+  let passwordControl = c.get('password');
+  let confirmControl = c.get('passwordConfirm');
+  if(passwordControl.pristine || confirmControl.pristine ) {
+    return null;
+  }
+  if(passwordControl.value === confirmControl.value) {
+    return null;
+  }
+  return {'match': true};
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -27,7 +40,13 @@ export class AppComponent implements OnInit{
       firstName: ['',[Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       lastName: ['',[Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       email: ['',[Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]]
+      // password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]],
+      // passwordConfirm: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]]
+      security: this.fb.group({
+        password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]],
+        passwordConfirm: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]]
+      }, {validator: passwordMatcher})
+
     })
   }
 

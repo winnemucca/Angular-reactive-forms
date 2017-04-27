@@ -6,17 +6,23 @@
       <md-grid-list cols="3" [rowHeight]="fit" gutterSize="1">
         <md-grid-tile> One </md-grid-tile>
         <md-grid-tile>
-          <form novalidate (ngSubmit)="onSubmit(user)" [formGroup]="customerForm">
+          <form
+            novalidate
+            (ngSubmit)="onSubmit()"
+            [formGroup]="customerForm">
             <md-card-title-group>
               <md-card-title style="margin-left: 8px;">Model Driven Form</md-card-title>
 
             </md-card-title-group>
             <div>
-              <md-input-container style="width: 100%">
+              <md-input-container
+                [ngClass]="{'has-error': (customerForm.get('firstName').touched || customerForm.get('firstName').dirty) && customerForm.get('firstName').valid}"
+                style="width: 100%">
                 <input
                   id="firstNameId"
                   formControlName="firstName"
                   type="text"
+                  value="firstName"
                   mdInput
                   placeholder="First name">
               </md-input-container>
@@ -25,6 +31,7 @@
                   id="lastNameId"
                   formControlName="lastName"
                   type="text"
+                  value="lastName"
                   mdInput
                   placeholder="Last name">
               </md-input-container>
@@ -34,21 +41,45 @@
                   id="emailId"
                   formControlName="email"
                   type="email"
+                  value="email"
                   mdInput
                   placeholder="Email">
                 <!--<span mdPrefix>$&nbsp;</span>-->
 
               </md-input-container>
-              <md-input-container style="width: 100%">
-                <input
-                  formControlName="password"
-                  type="password"
-                  mdInput
-                  placeholder="Password">
-              </md-input-container>
+              <div formGroupName="security">
+                <md-input-container style="width: 100%">
+                  <!--formControlName="notification"-->
+                  <input
+                    formControlName="password"
+                    value="password"
+                    type="password"
+                    mdInput
+                    placeholder="Password">
+                </md-input-container>
+                <md-input-container style="width: 100%">
+                  <!--formControlName="notification"-->
+                  <input
+                    formControlName="passwordConfirm"
+                    value="passwordConfirm"
+                    type="password"
+                    mdInput
+                    placeholder="Re-enter Password">
+                  <md-hint align="end" *ngIf="(customerForm.get('security.passwordConfirm').touched ||
+                                               customerForm.get('security.passwordConfirm').dirty) &&
+                                               customerForm.get('security.passwordConfirm').errors">
+                    <span *ngIf="customerForm.get('security.passwordConfirm').errors" > Password mismatch</span>
+                    <i class="material-icons md-18" style="font-size: 18px">mode_edit</i>
+                    <!--todo figure out error with md-18 sizing not working correctly-->
+                  </md-hint>
+                </md-input-container>
+              </div>
             </div>
             <md-card-actions>
-              <button color="primary" md-raised-button>Submit</button>
+              <button
+                color="primary"
+                md-raised-button
+                [disabled]="!customerForm.valid">Submit</button>
             </md-card-actions>
 
             <md-card-footer>
@@ -61,3 +92,8 @@
     </md-card-content>
   </md-card>
 </div>
+
+<br> Dirty: {{customerForm.dirty}}
+<br> touched: {{customerForm.touched}}
+<br> Valid: {{customerForm.valid}}
+<br> Value: {{customerForm.value|json}}
