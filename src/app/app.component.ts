@@ -14,7 +14,7 @@ function passwordMatcher(c: AbstractControl): {[key: string]: boolean} |null {
   if(passwordControl.value === confirmControl.value) {
     return null;
   }
-  return {'mismatch': true};
+  return {'match': true};
 }
 
 @Component({
