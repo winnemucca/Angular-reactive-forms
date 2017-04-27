@@ -25,12 +25,12 @@ function passwordMatcher(c: AbstractControl): {[key: string]: boolean} |null {
 export class AppComponent implements OnInit{
   customerForm: FormGroup;
   user:Customer;
-  emailMessage: string;
-  form: FormGroup;
+  passwordMessage: string;
 
-  private validateMessages = {
-    required: 'Please enter your email address.',
-    pattern: 'Please enter a valid email address'
+  private validationMessages = {
+    required: 'Please enter your password.',
+    pattern: 'Please enter a valid email address',
+    minlength: 'Please limit password length between 4-16 characters'
   }
   constructor(private fb: FormBuilder) {
   }
@@ -41,10 +41,15 @@ export class AppComponent implements OnInit{
       lastName: ['',[Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       email: ['',[Validators.required, Validators.email]],
       security: this.fb.group({
-        password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]],
-        passwordConfirm: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]]
+        password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(16)]],
+        passwordConfirm: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(16)]]
       }, {validator: passwordMatcher})
 
+    })
+
+    const passwordControl = this.customerForm.get('security.passwordConfirm');
+    passwordControl.valueChanges.debounceTime(1000).subscribe( value => {
+      this.setMessage(passwordControl)
     })
   }
 
@@ -54,10 +59,10 @@ export class AppComponent implements OnInit{
   }
 
   setMessage(c:AbstractControl) {
-    this.emailMessage = '';
-    if((c.touched || c.dirty) && c. errors) {
-      this.emailMessage = Object.keys(c.errors).map(key =>
-        this.validateMessages[key]).join(' ')
+    this.passwordMessage = '';
+    if((c.touched || c.dirty) && c.errors) {
+      this.passwordMessage = Object.keys(c.errors).map(key =>
+        this.validationMessages[key]).join(' ')
     }
   }
 }

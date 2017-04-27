@@ -65,11 +65,8 @@
                     type="password"
                     mdInput
                     placeholder="Re-enter Password">
-                  <md-hint align="end" *ngIf="(customerForm.get('security.passwordConfirm').touched ||
-                                               customerForm.get('security.passwordConfirm').dirty) &&
-                                               customerForm.get('security.passwordConfirm').errors ||
-                                               customerForm.get('security').errors">
-                    <span *ngIf="!customerForm.get('security.passwordConfirm').errors?.match" > Password mismatch</span>
+                  <md-hint align="end" *ngIf="passwordMessage">
+                    <span *ngIf="passwordMessage" > {{passwordMessage}}</span>
                     <i class="material-icons md-18" style="font-size: 18px">mode_edit</i>
                     <!--todo figure out error with md-18 sizing not working correctly-->
                   </md-hint>
