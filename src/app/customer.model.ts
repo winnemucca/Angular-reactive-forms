@@ -2,11 +2,9 @@
  * Created by steve on 4/26/17.
  */
 export interface Customer {
-  name: string; // required field with minimum 5 characters
-  addresses: Address[]; // user can have one or more addresses
+  firstName: string;
+  lastname: string;
+  email: string;
+  password: any;
 }
 
-export interface Address {
-  street: string;  // required field
-  postcode: string;
-}

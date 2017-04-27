@@ -1,5 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { Validators, FormGroup, FormArray, FormBuilder} from '@angular/forms';
+import {Validators, FormGroup, FormArray, FormBuilder, AbstractControl} from '@angular/forms';
+import 'rxjs/add/operator/debounceTime';
+
+import { Customer } from './customer.model';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,9 +11,14 @@ import { Validators, FormGroup, FormArray, FormBuilder} from '@angular/forms';
 })
 export class AppComponent implements OnInit{
   customerForm: FormGroup;
-  user: FormGroup;
-
+  user:Customer;
+  emailMessage: string;
   form: FormGroup;
+
+  private validateMessages = {
+    required: 'Please enter your email address.',
+    pattern: 'Please enter a valid email address'
+  }
   constructor(private fb: FormBuilder) {
   }
 
@@ -22,7 +31,16 @@ export class AppComponent implements OnInit{
     })
   }
 
-  onSubmit(user) {
-    console.log(user);
+  onSubmit() {
+    console.log(this.customerForm);
+    console.log(JSON.stringify(this.customerForm.value));
+  }
+
+  setMessage(c:AbstractControl) {
+    this.emailMessage = '';
+    if((c.touched || c.dirty) && c. errors) {
+      this.emailMessage = Object.keys(c.errors).map(key =>
+        this.validateMessages[key]).join(' ')
+    }
   }
 }
