@@ -29,8 +29,9 @@ export class AppComponent implements OnInit{
 
   private validationMessages = {
     required: 'Please enter your password.',
-    pattern: 'Please enter a valid email address',
-    minlength: 'Please limit password length between 4-16 characters'
+    passwordMatcher: 'Please enter a valid email address',
+    minlength: 'Please limit password length between 4-16 characters',
+    maxlength: 'Please limit password length between 4-16 characters'
   }
   constructor(private fb: FormBuilder) {
   }
