@@ -29,16 +29,24 @@ export class AppComponent implements OnInit{
 
   private validationMessages = {
     required: 'Please enter your password.',
-    passwordMatcher: 'Please enter a valid email address',
+    validator: 'Password mismatch',
     minlength: 'Please limit password length between 4-16 characters',
-    maxlength: 'Please limit password length between 4-16 characters'
+    maxlength: 'Please limit password length between 4-16 characters',
+    firstName: {
+      required: 'First name is required',
+      minlength: 'Name must include at least three letters',
+      maxlength: 'Name cannot exceed 16 characters'
+    },
+    email: {
+      required: 'Email is required'
+    }
   }
   constructor(private fb: FormBuilder) {
   }
 
   ngOnInit():void {
     this.customerForm = this.fb.group({
-      firstName: ['',[Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      firstName: ['',[Validators.required, Validators.minLength(3), Validators.maxLength(16), Validators.pattern('^[a-zA-Z]')]],
       lastName: ['',[Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       email: ['',[Validators.required, Validators.email]],
       security: this.fb.group({
