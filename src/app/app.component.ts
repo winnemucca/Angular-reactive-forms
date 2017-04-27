@@ -14,7 +14,7 @@ function passwordMatcher(c: AbstractControl): {[key: string]: boolean} |null {
   if(passwordControl.value === confirmControl.value) {
     return null;
   }
-  return {'match': true};
+  return {'mismatch': true};
 }
 
 @Component({
@@ -40,8 +40,6 @@ export class AppComponent implements OnInit{
       firstName: ['',[Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       lastName: ['',[Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       email: ['',[Validators.required, Validators.email]],
-      // password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]],
-      // passwordConfirm: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]]
       security: this.fb.group({
         password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]],
         passwordConfirm: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]]
